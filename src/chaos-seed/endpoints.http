@@ -1,0 +1,25 @@
+### create new chaos seed
+POST http://localhost:3000/chaos-seed
+Content-Type: application/json
+
+{
+    "startingLocation": "here",
+    "name": "Heman8008"
+}
+
+### get chaos seed by id
+GET http://localhost:3000/chaos-seed/2
+Content-Type: application/json
+
+### track dead chaos seed
+POST http://localhost:3000/chaos-seed/dead-on-arrival
+Content-Type: application/json
+
+{
+    "startingLocation": "volcano",
+    "isDeadOnArrival": 1
+}
+
+### find all chaos seeds
+GET http://localhost:3000/chaos-seed
+Content-Type: application/json
