@@ -1,7 +1,7 @@
 {
   "name": "chaos-seed",
   "version": "0.0.1",
-  "description": "",
+  "description": "A restructuring of what I created in the chaos-seed project as I learn NestJS.",
   "author": "",
   "private": true,
   "license": "UNLICENSED",
@@ -83,5 +83,9 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "main": "index.js",
+  "directories": {
+    "test": "test"
   }
 }
