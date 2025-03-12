@@ -1,13 +1,19 @@
 import {
   AllowNull,
   AutoIncrement,
+  BelongsToMany,
   Column,
+  HasMany,
   Model,
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
 import { Experienced } from '../interfaces';
 import { Identifiable } from 'src/common/interfaces';
+import { Ability } from './ability.model';
+import { ChaosSeedAbility } from './chaos-seed-ability.model';
+import { Language } from './language.model';
+import { ChaosSeedLanguage } from './chaos-seed-language.model';
 
 @Table({
   timestamps: true,
@@ -79,6 +85,9 @@ export class ChaosSeed
   @Column({ defaultValue: 'None ' })
   declare resistances: string;
 
+  @Column({ defaultValue: 'None ' })
+  declare weaknesses: string;
+
   @Column({ defaultValue: 'None' })
   declare skills: string;
 
@@ -88,11 +97,12 @@ export class ChaosSeed
   @Column({ defaultValue: false })
   declare isDeadOnArrival: boolean;
 
-  @Column
-  declare abilities?: string;
+  @BelongsToMany(() => Ability, () => ChaosSeedAbility)
+  @AllowNull(true)
+  declare abilities: [];
 
-  @Column
-  declare languages?: string;
+  @BelongsToMany(() => Language, () => ChaosSeedLanguage)
+  declare languages: [];
 
   @Column
   declare race?: string;
