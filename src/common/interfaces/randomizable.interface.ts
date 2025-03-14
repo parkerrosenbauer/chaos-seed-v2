@@ -1,3 +1,3 @@
 export interface Randomizable {
-  chance: boolean;
+  chance: number;
 }
