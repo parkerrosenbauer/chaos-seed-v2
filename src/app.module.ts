@@ -4,15 +4,17 @@ import {
   MiddlewareConsumer,
   ValidationPipe,
 } from '@nestjs/common';
-import { logger } from './middleware';
+import { logger } from './common/middleware';
 import { ChaosSeedsModule } from './chaos-seed/chaos-seeds.module';
 import { APP_PIPE } from '@nestjs/core';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
+import { AreasModule } from './area/areas.module';
 
 @Module({
   imports: [
     ChaosSeedsModule,
+    AreasModule,
     ConfigModule.forRoot(),
     SequelizeModule.forRoot({
       dialect: 'postgres',
