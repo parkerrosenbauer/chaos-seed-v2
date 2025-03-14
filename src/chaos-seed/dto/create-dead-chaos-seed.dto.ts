@@ -1,4 +1,4 @@
 export class CreateDeadChaosSeedDto {
-  startingLocation: string;
+  startingAreaId: number;
   isDeadOnArrival: true;
 }

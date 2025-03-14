@@ -1,4 +1,4 @@
 export class CreateChaosSeedDto {
-  startingLocation: string;
+  startingAreaId: number;
   name: string;
 }
