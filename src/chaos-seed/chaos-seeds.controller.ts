@@ -4,12 +4,10 @@ import {
   Body,
   Param,
   Get,
-  NotFoundException,
   ParseIntPipe,
 } from '@nestjs/common';
 import { ChaosSeedsService } from './chaos-seeds.service';
 import { CreateChaosSeedDto, CreateDeadChaosSeedDto } from './dto';
-import { InitializeChaosSeed } from './pipes';
 import { ChaosSeed } from './models/chaos-seed.model';
 
 @Controller('chaos-seed')
@@ -17,7 +15,7 @@ export class ChaosSeedsController {
   constructor(private readonly chaosSeedsService: ChaosSeedsService) {}
 
   @Post()
-  async create(@Body(InitializeChaosSeed) chaosSeed: CreateChaosSeedDto) {
+  async create(@Body() chaosSeed: CreateChaosSeedDto) {
     return await this.chaosSeedsService.create(chaosSeed);
   }
 
@@ -36,8 +34,18 @@ export class ChaosSeedsController {
     return await this.chaosSeedsService.findAll();
   }
 
-  @Get('random-starting-location')
-  getRandomStartingLocation() {
-    return this.chaosSeedsService.getRandomStartingLocation();
+  @Get('abilities/:id')
+  async findAbilities(@Param('id', ParseIntPipe) id: number) {
+    return await this.chaosSeedsService.findAbilities(id);
+  }
+
+  @Get('race/:id')
+  async findRace(@Param('id', ParseIntPipe) id: number) {
+    return await this.chaosSeedsService.findRace(id);
+  }
+
+  @Get('languages/:id')
+  async findLanguages(@Param('id', ParseIntPipe) id: number) {
+    return await this.chaosSeedsService.findLanguages(id);
   }
 }
