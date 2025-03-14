@@ -1,17 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ChaosSeedsController } from './chaos-seeds.controller';
-import { ChaosSeedsService } from './chaos-seeds.service';
-import { CreateChaosSeedDto, CreateDeadChaosSeedDto } from './dto';
-
-const createChaosSeedDto: CreateChaosSeedDto = {
-  startingLocation: 'here',
-  name: 'Heman8008',
-};
-
-const createDeadChaosSeedDto: CreateDeadChaosSeedDto = {
-  startingLocation: 'volcano',
-  isDeadOnArrival: true,
-};
+import { ChaosSeedsController } from '../chaos-seeds.controller';
+import { ChaosSeedsService } from '../chaos-seeds.service';
+import { CreateChaosSeedDto, CreateDeadChaosSeedDto } from '../dto';
+import { mockChaosSeedDto, mockDeadChaosSeedDto } from './chaos-seed.spec-data';
 
 describe('ChaosSeedsController', () => {
   let chaosSeedsController: ChaosSeedsController;
@@ -51,7 +42,6 @@ describe('ChaosSeedsController', () => {
                 id,
               }),
             ),
-            remove: jest.fn(),
           },
         },
       ],
@@ -67,26 +57,26 @@ describe('ChaosSeedsController', () => {
 
   describe('create()', () => {
     it('should create a chaos seed', () => {
-      expect(chaosSeedsController.create(createChaosSeedDto)).resolves.toEqual({
+      expect(chaosSeedsController.create(mockChaosSeedDto)).resolves.toEqual({
         id: 1,
-        ...createChaosSeedDto,
+        ...mockChaosSeedDto,
       });
       expect(chaosSeedsService.create).toHaveBeenCalled();
-      expect(chaosSeedsService.create).toHaveBeenCalledWith(createChaosSeedDto);
+      expect(chaosSeedsService.create).toHaveBeenCalledWith(mockChaosSeedDto);
     });
   });
 
   describe('createDead()', () => {
     it('should create a dead on arrival chaos seed', () => {
       expect(
-        chaosSeedsController.createDead(createDeadChaosSeedDto),
+        chaosSeedsController.createDead(mockDeadChaosSeedDto),
       ).resolves.toEqual({
         id: 1,
-        ...createDeadChaosSeedDto,
+        ...mockDeadChaosSeedDto,
       });
       expect(chaosSeedsService.createDead).toHaveBeenCalled();
       expect(chaosSeedsService.createDead).toHaveBeenCalledWith(
-        createDeadChaosSeedDto,
+        mockDeadChaosSeedDto,
       );
     });
   });
