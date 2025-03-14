@@ -3,12 +3,12 @@ POST http://localhost:3000/chaos-seed
 Content-Type: application/json
 
 {
-    "startingLocation": "here",
+    "startingAreaId": 1,
     "name": "Heman8008"
 }
 
 ### get chaos seed by id
-GET http://localhost:3000/chaos-seed/2
+GET http://localhost:3000/chaos-seed/8
 Content-Type: application/json
 
 ### track dead chaos seed
@@ -16,10 +16,22 @@ POST http://localhost:3000/chaos-seed/dead-on-arrival
 Content-Type: application/json
 
 {
-    "startingLocation": "volcano",
+    "startingAreaId": 16,
     "isDeadOnArrival": 1
 }
 
 ### find all chaos seeds
 GET http://localhost:3000/chaos-seed
+Content-Type: application/json
+
+### get all abilities of chaos seed
+GET http://localhost:3000/chaos-seed/abilities/7
+Content-Type: application/json
+
+### get the race of a chaos seed
+GET http://localhost:3000/chaos-seed/race/12
+Content-Type: application/json
+
+### get the languages of a chaos seed
+GET http://localhost:3000/chaos-seed/languages/12
 Content-Type: application/json
