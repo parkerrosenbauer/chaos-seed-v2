@@ -1,9 +1,9 @@
 import {
-  AllowNull,
   AutoIncrement,
+  BelongsTo,
   BelongsToMany,
   Column,
-  HasMany,
+  ForeignKey,
   Model,
   PrimaryKey,
   Table,
@@ -14,10 +14,10 @@ import { Ability } from './ability.model';
 import { ChaosSeedAbility } from './chaos-seed-ability.model';
 import { Language } from './language.model';
 import { ChaosSeedLanguage } from './chaos-seed-language.model';
+import { Race } from './race.model';
+import { AreaBiome } from 'src/area/models';
 
-@Table({
-  timestamps: true,
-})
+@Table
 export class ChaosSeed
   extends Model<ChaosSeed>
   implements Experienced, Identifiable
@@ -27,9 +27,12 @@ export class ChaosSeed
   @Column
   declare id: number;
 
-  @AllowNull(false)
+  @ForeignKey(() => AreaBiome)
   @Column
-  declare startingLocation: string;
+  declare startingAreaId: number;
+
+  @BelongsTo(() => AreaBiome)
+  declare startingArea: AreaBiome;
 
   @Column({ defaultValue: 'Unknown' })
   declare name: string;
@@ -98,12 +101,15 @@ export class ChaosSeed
   declare isDeadOnArrival: boolean;
 
   @BelongsToMany(() => Ability, () => ChaosSeedAbility)
-  @AllowNull(true)
-  declare abilities: [];
+  declare abilities?: Ability[];
 
   @BelongsToMany(() => Language, () => ChaosSeedLanguage)
-  declare languages: [];
+  declare languages?: Language[];
 
+  @ForeignKey(() => Race)
   @Column
-  declare race?: string;
+  declare raceId?: number;
+
+  @BelongsTo(() => Race)
+  declare race?: Race;
 }

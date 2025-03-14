@@ -7,9 +7,14 @@ import {
   HasOne,
   PrimaryKey,
   Table,
+  HasMany,
+  BelongsToMany,
+  BelongsTo,
+  DataType,
 } from 'sequelize-typescript';
 import { Identifiable, Randomizable } from 'src/common/interfaces';
 import { Language } from './language.model';
+import { ChaosSeed } from './chaos-seed.model';
 
 @Table
 export class Race extends Model<Race> implements Identifiable, Randomizable {
@@ -23,18 +28,20 @@ export class Race extends Model<Race> implements Identifiable, Randomizable {
   declare name: string;
 
   @AllowNull(false)
-  @Column
+  @Column(DataType.STRING(1000))
   declare description: string;
 
   @AllowNull(false)
   @Column
-  declare chance: boolean;
+  declare chance: number;
 
   @ForeignKey(() => Language)
-  @AllowNull(true)
+  @Column
   declare languageId?: number;
 
-  @HasOne(() => Language)
-  @AllowNull(true)
+  @BelongsTo(() => Language)
   declare language?: Language;
+
+  @HasMany(() => ChaosSeed)
+  declare chaosSeeds?: ChaosSeed[];
 }

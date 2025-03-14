@@ -1,12 +1,16 @@
 import {
   AllowNull,
   AutoIncrement,
+  BelongsToMany,
   Column,
+  DataType,
   Model,
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
 import { Identifiable, Randomizable } from 'src/common/interfaces';
+import { ChaosSeed } from './chaos-seed.model';
+import { ChaosSeedAbility } from './chaos-seed-ability.model';
 
 @Table
 export class Ability
@@ -23,10 +27,13 @@ export class Ability
   declare name: string;
 
   @AllowNull(false)
-  @Column
+  @Column(DataType.STRING(1000))
   declare description: string;
 
   @AllowNull(false)
   @Column
-  declare chance: boolean;
+  declare chance: number;
+
+  @BelongsToMany(() => ChaosSeed, () => ChaosSeedAbility)
+  declare chaosSeeds: ChaosSeed[];
 }
